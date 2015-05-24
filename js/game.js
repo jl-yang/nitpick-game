@@ -28,8 +28,8 @@ function saveName()
 }
 
 //Count time
-var count=60;
-var counter=setInterval(timer, 3000);
+var count=150;
+var counter=setInterval(timer, 1000);
 function timer()
 {
 	count=count-1;
