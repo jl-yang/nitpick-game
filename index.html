@@ -1,18 +1,121 @@
+<!DOCTYPE html>
 <html>
-    <head>        
-        <script src="sockjs-0.3.js"></script>
-        <script src="stomp.js"></script>
-        <script src="communications.js"></script>
-    </head>
-    <body>
-        
-        
-        <p>Count:</p>
-        <p id="number">0</p>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/game.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<style>
+p.serif {
+    font-family: "Comic Sans MS";
+}
+</style>
+</head>
+<body>
 
+<!-- Home Page -->
+<div data-role="page" id="home">
+	<div data-role="header">
+		<h1>NICPICK</h1>
+	</div>
+	
+	<div id="container">
+		<div class="tips">
+			<h2 align="center">INSTRUCTIONS:</h2>
+			<ul>
+			<li>Please input your name before you play the game;</li>
+			<li>Click the different places and you will see the difference. Check the example picture on the right side;</li>
+			<li>The time is limited. You have to find the difference in the required time;</li>
+			<li>When you find one different place, you get one point. Who get higher points who win;</li>
+			</ul>
+			<a href="#inputname" data-role="button" >Start the Game!</a>
+		</div>
 
-        <button type="button" id = "mybutton">Add 1</button>
-        
-        
-    </body>
+		<div class="example">
+			<p style="text-align:center; font-size:130%; color:#000000""; class="serif"><b>ONLY GUYS WITH SHARP EYES WILL WIN THE GAME!</b></p>
+			<div style="position: fixed; left: 600px">
+			<img class="displayed" src="image/example.jpg" alt="Two different images"/>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<h1 style="text-align:left">2015 Distributed System Projects by HUST-4. All rights reserved. </h1>
+	</div>
+</div> 
+
+<!-- Input user's name -->
+<div data-role="page" id="inputname">
+	<div data-role="header">
+		<a href="#home" data-role="button" data-icon="home">Home</a>
+		<h1>NICPICK</h1>
+	</div>
+
+	<div data-role="content">
+		<label for="fname">INPUT YOUR NAME HERE:</label>
+		<input type="text" name="fname" id="fname"> 
+		<button onclick="saveName()">Save your name</button>
+		<a href="#game" data-role="button">Continue</a>
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<h1 style="text-align:left">2015 Distributed System Projects by HUST-4. All rights reserved. </h1>
+	</div>
+</div> 
+
+<!-- Game Process -->
+<div data-role="page" id="game">
+	<div data-role="header">
+		<a href="#home" data-role="button" data-icon="home">Home</a>
+		<h1>NICPICK</h1>
+	</div>
+
+	<div id="container">
+		<div class="tips">
+			<h2 align="center">Scores</h2>
+			<li id="username"></li>
+			<h3 id="points"></h3>
+		</div>
+		
+		<div class="example">
+			<p style="text-align:center; font-size:130%; color:#000000""; class="serif"><b>ONLY GUYS WITH SHARP EYES WILL WIN THE GAME!</b></p>
+			<h1 id="timer" style="text-align:center"></h1>
+			<div id="mark">
+				<img class="displayed" src="image/test.jpg" alt="" id="myImgId"/>
+				<script type="text/javascript">
+					var myImg = document.getElementById("myImgId");
+					myImg.onmousedown = GetCoordinates;
+				</script>
+			</div>
+			<p align="center"><b>Tips:</b> You can only click the picture on the RIGHT side.</p>
+			<!-- map 
+			<IMG class="displayed" src="image/test.jpg" alt="" usemap="#Map"/>
+			<map name="Map" id="Map">
+				<area alt="" href="javascript: score()" shape="rect" coords="403,271,441,312" />
+				<area alt="" href="javascript: score()" shape="rect" coords="516,247,547,277" />
+				<area alt="" href="javascript: score()" shape="rect" coords="448,74,485,108" />
+				<area alt="" href="javascript: score()" shape="rect" coords="758,23,785,45" />
+				<area alt="" href="javascript: score()" shape="rect" coords="571,19,608,49" />
+				<area alt="" href="javascript: score()" shape="rect" coords="705,244,761,284" />
+				<area alt="" href="javascript: score()" shape="rect" coords="620,127,666,169" />
+				<area alt="" href="javascript: score()" shape="rect" coords="632,343,669,370" />
+				<area alt="" href="javascript: score()" shape="rect" coords="518,331,550,356" />
+				<area alt="" href="javascript: score()" shape="rect" coords="440,328,464,345" />
+				<area alt="" href="javascript: score()" shape="rect" coords="410,46,427,64" />
+				<area alt="" href="javascript: score()" shape="rect" coords="783,98,797,120" />
+			</map>
+			<p>X:<span id="x"></span></p>
+			<p>Y:<span id="y"></span></p>
+			-->
+		</div>
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<h1 style="text-align:left">2015 Distributed System Projects by HUST-4. All rights reserved. </h1>
+	</div>
+</div> 
+
+</body>
 </html>
