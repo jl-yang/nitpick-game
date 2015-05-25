@@ -150,6 +150,13 @@ function GetCoordinates(e)
 	}  
   }
   if(scoreObject.value == 12){
-	alert("Congrats! You have found all the differences!");
+	/*alert("Congrats! You have found all the differences!");*/
+	var r = confirm("Congrats! You found all the differences! Do you want to log out?");
+	if(r == true){
+		alert("You logged out!")
+		window.location.href="#home";
+	}
+	else{
+	}
   }
 }
