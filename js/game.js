@@ -1,3 +1,5 @@
+var localName = null;
+
 var scoreObject = {
   value: 0,
   increment: function (inc) {
@@ -24,7 +26,10 @@ function saveName()
 	if (name != ""){
 		alert("Your name has been loaded!")
 	}
-	document.getElementById("username").innerHTML=name;
+	//document.getElementById("username1").innerHTML=name;
+    localName = name;
+    //Initial the info
+    send_message(localName, 0);
 }
 
 //Count time
@@ -90,62 +95,62 @@ function GetCoordinates(e)
   if(scoreObject.value < 13){
 	if((PosX>430 && PosX<460) && (PosY>300 && PosY<360)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>405 && PosX<435) && (PosY>270 && PosY<300)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>526 && PosX<548) && (PosY>325 && PosY<346)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>630 && PosX<660) && (PosY>340 && PosY<365)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>509 && PosX<545) && (PosY>240 && PosY<270)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>705 && PosX<760) && (PosY>250 && PosY<275)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
 	img.appendTo('#mark');
 	}
 	else if((PosX>610 && PosX<660) && (PosY>125 && PosY<160)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
 	img.appendTo('#mark');
 	}
 	else if((PosX>400 && PosX<430) && (PosY>30 && PosY<60)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>445 && PosX<480) && (PosY>70 && PosY<105)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
 	img.appendTo('#mark');
 	}
 	else if((PosX>780 && PosX<800) && (PosY>80 && PosY<120)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}
 	else if((PosX>570 && PosX<605) && (PosY>15 && PosY<45)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value; 
 	img.appendTo('#mark');
 	}
 	else if((PosX>750 && PosX<785) && (PosY>15 && PosY<45)){
 	scoreObject.increment();
-	document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
+	//document.getElementById("points").innerHTML = "Score: " + scoreObject.value;
 	img.appendTo('#mark');
 	}  
   }
@@ -159,4 +164,6 @@ function GetCoordinates(e)
 	else{
 	}
   }
+  
+  send_message(localName, scoreObject.value);
 }
