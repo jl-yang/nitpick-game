@@ -7,18 +7,6 @@ var scoreObject = {
            }
 };
 
-//Get local time
-function myFunction()
-{
-	var x="";
-	var time=new Date().getHours();
-	if (time<22)
-	{
-	  x="Good day";
-	}
-	document.getElementById("demo").innerHTML=x;
-}
-
 //Save name
 function saveName()
 {
@@ -166,4 +154,39 @@ function GetCoordinates(e)
   }
   
   send_message(localName, scoreObject.value);
+}
+
+function setCookie(name, value, expireday) {
+var exp = new Date();
+exp.setTime(exp.getTime() + expireday*1000*60); //set cookie expiration
+document.cookie = name+"="+escape(value)+"; expires"+"="+exp.toGMTString();//create cookie
+}
+
+function getCookie(name) {
+var cookieStr = document.cookie;
+if(cookieStr.length > 0) {
+var cookieArr = cookieStr.split(";"); //transform the cookie information into array
+for (var i=0; i<cookieArr.length; i++) {
+var cookieVal = cookieArr[i].split("="); //transform each group of cookie(cookie key,value) as array
+if(cookieVal[0] == name) {
+return unescape(cookieVal[1]); //return the cookie wanted
+}
+}
+}
+}
+
+function checkCookie() {
+//var cookieUser = document.getElementById("cookieUser");
+var userName = getCookie("userName");
+if(userName) {
+//cookieUser.innerHTML = "hello"+userName+",welcome back!"; 
+	window.location.href="#game";
+} else {
+var value = prompt("input user name", "");
+if(value) {
+setCookie('userName', value, 1);
+} else {
+alert("input user name!");
+}
+}
 }
