@@ -1,6 +1,8 @@
 var ws = new SockJS('http://localhost:15674/stomp');
 var client = Stomp.over(ws);
-var queue = "/exchange/logs";
+
+var send_queue = "/exchange/logs";
+var receive_queue = "/exchange/gamestate"
 
 
 // SockJS does not support heart-beat: disable heart-beats
@@ -10,7 +12,7 @@ client.heartbeat.incoming = 0;
 var on_connect = function(x) {
     console.log("connected");
     //The queue will be auto deleted once the website is closed
-    client.subscribe(queue, on_message);
+    client.subscribe(receive_queue, on_message);
 };
 
 var on_error =  function(e) {
@@ -19,19 +21,26 @@ var on_error =  function(e) {
 
 // This will be called upon arrival of a message
 function on_message(m) {
-  console.log('message received'); 
-  console.log(m);
+    console.log("Having messages");
+    var msg = JSON.parse(m.body);
+    var users = msg.users;
+    for (var i=0;i < users.length; i++) {
+        document.getElementById("username"+(i+1)).innerHTML = users[i].username;
+        document.getElementById("points"+(i+1)).innerHTML = users[i].score;
+    }
+    
+}
+
+function send_message(name, score) {
+    var msgObj = {
+        "name": name,
+        "score": score
+    }
+    client.send(send_queue, {},  JSON.stringify(msgObj));
 }
 
 window.onload = function() {
-    
-    document.getElementById("mybutton").addEventListener("click", function() {
-        var numberObject = document.getElementById("number");
-        var number = Number(numberObject.innerHTML);
-        number += 1;
-        numberObject.innerHTML = number;   
-        client.send(queue, {}, number);
-    });
+       
     
     client.connect('guest', 'guest', on_connect, on_error, '/');
 }

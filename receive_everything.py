@@ -14,10 +14,10 @@ mq_params = pika.ConnectionParameters(
     host         = "localhost",
     virtual_host = "/")
 
-mq_exchange    = "logs"
-mq_routing_key = "logs"   
-gamestate_exchange = "gamestate" 
-gamestate_routing_key = "gamestate" 
+receive_client_exchange    = "logs"
+receive_client_routing_key = "logs"   
+send_gamestate_exchange = "gamestate" 
+send_gamestate_routing_key = "gamestate" 
 
 def handleIncomingMessage(ch, method, properties, body):
     msgObj = json.loads(body)
@@ -45,19 +45,19 @@ def handleIncomingMessage(ch, method, properties, body):
                 user["username"] = msgObj["name"]
                 user["score"] = msgObj["score"]
                 break
-    ch.basic_publish(exchange=gamestate_exchange, routing_key=gamestate_routing_key, body=json.dumps(users_json))
+    ch.basic_publish(exchange=send_gamestate_exchange, routing_key=send_gamestate_routing_key, body=json.dumps(users_json))
 
 if __name__ == "__main__":
     connection = pika.BlockingConnection(mq_params)
     channel = connection.channel()
     
-    channel.exchange_declare(exchange="logs", type='fanout')
-    channel.exchange_declare(exchange="gamestate", type='fanout')
+    channel.exchange_declare(exchange=receive_client_exchange, type='fanout')
+    channel.exchange_declare(exchange=send_gamestate_exchange, type='fanout')
     
     result = channel.queue_declare(exclusive=True, auto_delete=True)
     queue_name = result.method.queue
     
-    channel.queue_bind(exchange=mq_exchange, queue=queue_name)
+    channel.queue_bind(exchange=receive_client_exchange, queue=queue_name)
     
     print " [*] Waiting for logs. To exit press CTRL+C"
         
